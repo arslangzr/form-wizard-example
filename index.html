@@ -132,12 +132,12 @@
                               </div>
                            </div>
                              
-
-                           <div class="bg-image" style="background-image: url('assets/images/bg.png');"> 
-                           </div>
+                           <canvas id="canvas_step3" class="step-3-bg-img"></canvas>
+                           <!-- <div class="bg-image" style="background-image: url('assets/images/bg.png');"> 
+                           </div> -->
                            <!-- <button class="btn btn-warning nextBtn btn-lg pull-right" type="button" >Next</button> -->
                       
-                           <button class="btn btn-warning btn-lg" type="submit">Request A Quote</button>
+                           <button id="request_demo_button" class="btn btn-warning btn-lg" type="submit">Request A Quote</button>
                         </div>
                   </div>
                   </form>
@@ -192,11 +192,32 @@
            });
          
            $('div.setup-panel div a.btn-primary').trigger('click');
+         //   $(".stepwizard-step:eq(1) a.btn.btn-circle.btn-default").addClass("disabled");
          });
             
           
       </script>
       <script>
+         let image_loaded;    //defining global variable to define loaded image from drag and drop
+         let selected_option;
+         let foreground1 = document.querySelector('.img-1');
+         let foreground2 = document.querySelector('.img-2');    
+         let foreground3 = document.querySelector('.img-3');    
+         let foreground4 = document.querySelector('.img-4');
+         // select all radio buttons with name="exampleRadios"
+         let radios = document.getElementsByName('exampleRadios');
+
+         // loop through all radio buttons
+         for (let i = 0; i < radios.length; i++) {
+         // check if radio button is checked
+         if (radios[i].checked) {
+            // get the value of the checked radio button
+            let selectedValue = radios[i].value;
+            selected_option = selectedValue;
+            break;
+         }
+         }
+
          function readFile(input) {
             $(".stepwizard-step:eq(1) a.btn.btn-circle.btn-default").click();
             $(".stepwizard-step:eq(0) a.btn.btn-circle.btn-default").addClass("disabled");
@@ -205,6 +226,12 @@
                var foregroundSelector = $("#step-2 .bg-image>img");  //Foreground selector of all images in step 2
 
                reader.onload = function (e) {
+                  image_loaded = e.target.result;
+                  foreground1.src = e.target.result;
+                  foreground2.src = e.target.result;    
+                  foreground3.src = e.target.result;    
+                  foreground4.src = e.target.result;
+                  // console.log(foreground1,foreground2,foreground3,foreground4);
                   foregroundSelector.attr("src",e.target.result);
                };
 
@@ -263,7 +290,34 @@
             else if($(".light-mode li a:eq(1)").hasClass("active")){
                console.log("dark mode triggered");
             }
+         });    
+         const canvas = document.getElementById('canvas_step3');
+         canvas.width = 550;
+         canvas.height = 550;
+         const context = canvas.getContext('2d');
+
+         const background = new Image();
+         background.src = "assets/images/bg.png";
+         background.onload = () => {
+         context.drawImage(background, 0, 0, canvas.width, canvas.height);
+         context.drawImage(foreground1, 75, 157);
+         context.drawImage(foreground2, 246, 157);
+         context.drawImage(foreground3, canvas.width - 75 - foreground3.width, 157);
+         context.save();
+         context.translate(162, canvas.height - 221);
+         context.rotate(Math.PI / 2);
+         context.drawImage(foreground4, 0, 0);
+         context.restore();
+         };
+         $("#request_demo_button").click(function(){
+            alert("Check console log");
+            console.log({
+               name:"name",
+               radiobutton: selected_option,
+               image:image_loaded
+            });
          });
+
          
       </script>
    </body>

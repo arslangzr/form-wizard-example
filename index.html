@@ -75,9 +75,9 @@
                   </div>
                   </div>
                   <div class="row">
-                  <div class="col-md-12 text-center mt-4">
+                  <!-- <div class="col-md-12 text-center mt-4">
                   <button type="button" class="btn btn-warning nextBtn">Upload</button>
-                  </div>
+                  </div> -->
                   </div>
                   </form>
                   <!-- <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button> -->
@@ -198,25 +198,8 @@
       </script>
       <script>
          function readFile(input) {
-         if (input.files && input.files[0]) {
-         var reader = new FileReader();
-         
-         reader.onload = function(e) {
-         var htmlPreview =
-          '<img width="200" src="' + e.target.result + '" />' +
-          '<p>' + input.files[0].name + '</p>';
-         var wrapperZone = $(input).parent();
-         var previewZone = $(input).parent().parent().find('.preview-zone');
-         var boxZone = $(input).parent().parent().find('.preview-zone').find('.box').find('.box-body');
-         
-         wrapperZone.removeClass('dragover');
-         previewZone.removeClass('hidden');
-         boxZone.empty();
-         boxZone.append(htmlPreview);
-         };
-         
-         reader.readAsDataURL(input.files[0]);
-         }
+            $(".stepwizard-step:eq(1) a.btn.btn-circle.btn-default").click();
+            $(".stepwizard-step:eq(0) a.btn.btn-circle.btn-default").addClass("disabled");
          }
          
          function reset(e) {

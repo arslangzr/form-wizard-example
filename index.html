@@ -241,6 +241,29 @@
          previewZone.addClass('hidden');
          reset(dropzone);
          });
+
+
+         //Dark and light mode toggle class
+         const elements = document.querySelectorAll('.light-mode li a');
+            elements.forEach((element) => {
+               element.addEventListener('click', () => {
+                  // Remove "active" class from all elements
+                  elements.forEach((other) => {
+                     other.classList.remove('active');
+                  });
+                  // Add "active" class to the clicked element
+                  element.classList.add('active');
+               });
+            });
+
+         $(".light-mode li a").click(function(){
+            if($(".light-mode li a:eq(0)").hasClass("active")){
+               console.log("light mode triggered");
+            }
+            else if($(".light-mode li a:eq(1)").hasClass("active")){
+               console.log("dark mode triggered");
+            }
+         });
          
       </script>
    </body>

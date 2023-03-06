@@ -265,3 +265,7 @@ font-weight: 600;
   color: #fc7c0e;
   border-bottom: 2px solid #fc7c0e;
 }
+#step-2 .bg-image>img{
+  width:100px;
+  height:32px;
+}

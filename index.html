@@ -200,6 +200,16 @@
          function readFile(input) {
             $(".stepwizard-step:eq(1) a.btn.btn-circle.btn-default").click();
             $(".stepwizard-step:eq(0) a.btn.btn-circle.btn-default").addClass("disabled");
+            if (input.files && input.files[0]) {
+               var reader = new FileReader();
+               var foregroundSelector = $("#step-2 .bg-image>img");  //Foreground selector of all images in step 2
+
+               reader.onload = function (e) {
+                  foregroundSelector.attr("src",e.target.result);
+               };
+
+               reader.readAsDataURL(input.files[0]);
+            }
          }
          
          function reset(e) {

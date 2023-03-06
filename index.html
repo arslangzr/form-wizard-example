@@ -200,6 +200,7 @@
       <script>
          let image_loaded;    //defining global variable to define loaded image from drag and drop
          let selected_option;
+         let day_night_selection = "Night";
          let foreground1 = document.querySelector('.img-1');
          let foreground2 = document.querySelector('.img-2');    
          let foreground3 = document.querySelector('.img-3');    
@@ -285,9 +286,11 @@
 
          $(".light-mode li a").click(function(){
             if($(".light-mode li a:eq(0)").hasClass("active")){
+               day_night_selection = "Day";
                console.log("light mode triggered");
             }
             else if($(".light-mode li a:eq(1)").hasClass("active")){
+               day_night_selection = "Night";
                console.log("dark mode triggered");
             }
          });    
@@ -314,6 +317,7 @@
             console.log({
                name:"name",
                radiobutton: selected_option,
+               daynight: day_night_selection,
                image:image_loaded
             });
          });

@@ -201,6 +201,7 @@
          let image_loaded;    //defining global variable to define loaded image from drag and drop
          let selected_option;
          let day_night_selection = "Night";
+         let base64Image;
          let foreground1 = document.querySelector('.img-1');
          let foreground2 = document.querySelector('.img-2');    
          let foreground3 = document.querySelector('.img-3');    
@@ -302,23 +303,51 @@
          const background = new Image();
          background.src = "assets/images/bg.png";
          background.onload = () => {
-         context.drawImage(background, 0, 0, canvas.width, canvas.height);
-         context.drawImage(foreground1, 75, 157);
-         context.drawImage(foreground2, 246, 157);
-         context.drawImage(foreground3, canvas.width - 75 - foreground3.width, 157);
-         context.save();
-         context.translate(162, canvas.height - 221);
-         context.rotate(Math.PI / 2);
-         context.drawImage(foreground4, 0, 0);
-         context.restore();
+            context.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+            // update the src of the foreground images
+            foreground1.src = image_loaded;
+            foreground2.src = image_loaded;
+            foreground3.src = image_loaded;
+            foreground4.src = image_loaded;
+
+            // redraw the canvas with the new images
+            foreground1.onload = () => {
+               context.drawImage(foreground1, 75, 157, 100, 32);
+            };
+            foreground2.onload = () => {
+               context.drawImage(foreground2, 246, 157, 100, 32);
+            };
+            foreground3.onload = () => {
+               context.drawImage(foreground3, canvas.width - 75 - foreground3.width, 157, 100, 32);
+            };
+            foreground4.onload = () => {
+               const x = 162;
+          const y = canvas.height - 250;
+          const width = 32;
+          const height = 100;
+          const angle = 90 * Math.PI / 180;
+
+          context.save();
+          context.translate(x + height / 2, y + width / 2);
+          context.rotate(angle);
+          context.drawImage(foreground4, -height / 2, -width / 2, height, width);
+          context.restore();
+
+            };
          };
+
          $("#request_demo_button").click(function(){
             alert("Check console log");
+            let canvas_image = document.getElementById('canvas_step3');
+            const context = canvas.getContext('2d');
+            const base64Image = canvas.toDataURL("image/png");
+
             console.log({
                name:"name",
                radiobutton: selected_option,
                daynight: day_night_selection,
-               image:image_loaded
+               image:base64Image
             });
          });
 

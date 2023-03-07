@@ -123,10 +123,10 @@
                               <div class="col-md-6">
                                  <ul class="light-mode">
                                     <li>
-                                       <a href="#">DAY</a>
+                                       <a href="#" class="active">DAY</a>
                                     </li>
                                     <li>
-                                       <a href="#" class="active">NIGHT</a>
+                                       <a href="#">NIGHT</a>
                                     </li>
                                  </ul>
                               </div>
@@ -200,7 +200,7 @@
       <script>
          let image_loaded;    //defining global variable to define loaded image from drag and drop
          let selected_option;
-         let day_night_selection = "Night";
+         let day_night_selection = "Day";
          let base64Image;
          let foreground1 = document.querySelector('.img-1');
          let foreground2 = document.querySelector('.img-2');    
@@ -288,11 +288,13 @@
          $(".light-mode li a").click(function(){
             if($(".light-mode li a:eq(0)").hasClass("active")){
                day_night_selection = "Day";
-               console.log("light mode triggered");
+               // console.log("light mode triggered");
+               $("body").css("background-color", "white");
             }
             else if($(".light-mode li a:eq(1)").hasClass("active")){
                day_night_selection = "Night";
-               console.log("dark mode triggered");
+               // console.log("dark mode triggered");
+               $("body").css("background-color", "darkgray");
             }
          });    
          const canvas = document.getElementById('canvas_step3');
